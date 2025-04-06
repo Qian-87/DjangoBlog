@@ -24,5 +24,12 @@ jobs:
       - name: Run migrations
         run: python manage.py migrate
 
-      - name: Run tests
-        run: python manage.py test --parallel 1 
+      - name: Run tests and generate report
+        run:  python manage.py test --noinput --junitxml=test-results.xml
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-results
+          path: test-results.xml
