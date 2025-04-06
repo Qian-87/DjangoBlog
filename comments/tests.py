@@ -11,6 +11,8 @@ from djangoblog.utils import get_max_articleid_commentid
 # Create your tests here.
 
 class CommentsTest(TransactionTestCase):
+    serialized_rollback = True
+    
     def setUp(self):
         self.client = Client()
         self.factory = RequestFactory()
