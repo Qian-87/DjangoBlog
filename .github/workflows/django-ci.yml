@@ -20,15 +20,19 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+        
+      - name: Install django-junit-report
+        run: pip install django-junit-report
 
       - name: Run migrations
         run: python manage.py migrate
 
       - name: Run tests and generate report
-        run:  python manage.py test --noinput --junitxml=test-results.xml
+        run:  |
+         python manage.py test --noinput --junitxml=test-results.xml
 
       - name: Upload test results
-        uses: actions/upload-artifact@v4  # 关键修改：使用 v4 版本
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: test-results
