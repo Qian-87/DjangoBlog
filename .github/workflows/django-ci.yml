@@ -19,10 +19,7 @@ jobs:
           python-version: 3.11
 
       - name: Install dependencies
-        run:  pip install -r requirements.txt
-              pip install pytest
-      - name: Install django-junit-report
-        run: |
+        run: |  # ▼▼▼ 修复此处命令格式 ▼▼▼
           pip install -r requirements.txt
           pip install pytest pytest-django
 
@@ -30,14 +27,8 @@ jobs:
         run: python manage.py migrate
 
       - name: Run tests and generate report
-        run:  |
-           pytest --junitxml=test-results.xml
+        run: pytest --junitxml=test-results.xml
 
-      - name: Debug test results
-        run: |
-          ls -la
-          cat test-results.xml 
-         
       - name: Upload test results
         uses: actions/upload-artifact@v4
         if: always()
