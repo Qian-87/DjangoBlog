@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: djangoblog  
+    runtime: python
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+    startCommand: gunicorn DjangoBlog.wsgi:application
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        value: "n9ceqv38)#&mwuat@(mjb_p%em$e8$qyr#fw9ot!=ba6lijx-6"   # Secret key in setting.py
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com"
